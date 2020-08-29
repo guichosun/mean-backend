@@ -16,15 +16,15 @@ const app = express();
 // Se usa el midleware de cors. Configura CORS
 app.use(cors());
 
+// Lectura y parseo del body
+app.use(express.json());
+
 // Se llama la funcion
 dbConn();
 
-// Rutas
-app.get("/", (req, res) => {
-  res.json({
-    msg: "Hola fucking mundo!!",
-  });
-});
+// Rutas. Mediante middleware
+app.use("/api/users", require("./routes/users.routes"));
+
 app.listen(process.env.PORT, () => {
   console.log("Servidor corriendo en el puerto " + process.env.PORT);
 });
